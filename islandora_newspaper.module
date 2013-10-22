@@ -332,10 +332,21 @@ function islandora_newspaper_islandora_newspaperissuecmodel_mods_islandora_datas
  * for highlighting.
  */
 function islandora_newspaper_islandora_newspaperpagecmodel_islandora_solr_object_result_alter(&$search_results, $query_processor) {
-  $search_results['object_url_params']['solr'] = array(
-    'query' => $query_processor->solrQuery,
-    'params' => $query_processor->solrParams,
+
+  // reducing solr params - too many causing error
+  $query_type = array(
+    'qt' => $query_processor->solrParams['qt'],
+    //'defType' => 'edismax',
   );
+
+  // only set solr parameters if there is a query
+  if (strlen($query_processor->solrQuery) > 1) {
+    $search_results['object_url_params']['solr'] = array(
+      'query' => urlencode($query_processor->solrQuery),
+      'params' => $query_type,
+      //'params' => $query_processor->solrParams,
+    );
+  }
 }
 
 /**
@@ -428,6 +439,7 @@ function islandora_newspaper_islandora_newspaperpagecmodel_islandora_derivative(
     $derivatives[] = array(
       'source_dsid' => 'OBJ',
       'destination_dsid' => 'PDF',
+      'weight' => 0,
       'function' => array(
         'islandora_paged_content_derivatives_pdf',
       ),
@@ -438,6 +450,7 @@ function islandora_newspaper_islandora_newspaperpagecmodel_islandora_derivative(
     $derivatives[] = array(
       'source_dsid' => 'OBJ',
       'destination_dsid' => 'TN',
+      'weight' => 1,
       'function' => array(
         'islandora_large_image_create_tn_derivative',
       ),
@@ -446,6 +459,7 @@ function islandora_newspaper_islandora_newspaperpagecmodel_islandora_derivative(
     $derivatives[] = array(
       'source_dsid' => 'OBJ',
       'destination_dsid' => 'JPG',
+      'weight' => 2,
       'function' => array(
         'islandora_large_image_create_jpg_derivative',
       ),
@@ -454,6 +468,7 @@ function islandora_newspaper_islandora_newspaperpagecmodel_islandora_derivative(
     $derivatives[] = array(
       'source_dsid' => 'OBJ',
       'destination_dsid' => 'JP2',
+      'weight' => 6,
       'function' => array(
         'islandora_large_image_create_jp2_derivative',
       ),
@@ -462,6 +477,7 @@ function islandora_newspaper_islandora_newspaperpagecmodel_islandora_derivative(
     $derivatives[] = array(
       'source_dsid' => 'JP2',
       'destination_dsid' => NULL,
+      'weight' => 7,
       'function' => array(
         'islandora_paged_content_add_dimensions_relationships',
       ),
@@ -470,6 +486,7 @@ function islandora_newspaper_islandora_newspaperpagecmodel_islandora_derivative(
     $derivatives[] = array(
       'source_dsid' => 'TN',
       'destination_dsid' => NULL,
+      'weight' => 3,
       'function' => array(
         'islandora_paged_content_derive_thumbnail_on_parent',
       ),
@@ -480,6 +497,7 @@ function islandora_newspaper_islandora_newspaperpagecmodel_islandora_derivative(
     $derivatives[] = array(
       'source_dsid' => 'OBJ',
       'destination_dsid' => 'OCR',
+      'weight' => 4,
       'function' => array(
         'islandora_ocr_derive_ocr',
       ),
@@ -488,6 +506,7 @@ function islandora_newspaper_islandora_newspaperpagecmodel_islandora_derivative(
     $derivatives[] = array(
       'source_dsid' => 'OBJ',
       'destination_dsid' => 'HOCR',
+      'weight' => 5,
       'function' => array(
         'islandora_ocr_derive_hocr',
       ),
