@@ -98,6 +98,14 @@ function islandora_newspaper_menu() {
       'access callback' => 'islandora_newspaper_issue_page_access',
       'access arguments' => array(2),
     ),
+    'islandora/object/%islandora_object/toc' => array(
+      'title' => 'Table of Contents',
+      'type' => MENU_LOCAL_TASK,
+      'page callback' => 'islandora_newspaper_toc_menu',
+      'page arguments' => array(2),
+      'access callback' => 'islandora_newspaper_toc_access_callback',
+      'access arguments' => array(2),
+    ),
   );
 }
 
@@ -145,6 +153,11 @@ function islandora_newspaper_theme($existing, $type, $theme, $path) {
     'islandora_newspaper_page_img_print' => array(
       'template' => 'theme/islandora-newspaper-page-img-print',
       'variables' => array('islandora_content' => NULL),
+    ),
+    'islandora_newspaper_toc' => array(
+      'arguments' => array('object' => NULL),
+      'file' => 'theme/theme.inc',
+      'template' => 'theme/islandora-toc',
     ),
   );
 }
@@ -747,4 +760,35 @@ function islandora_newspaper_islandora_view_print_object($object) {
         'islandora_content' => $islandora_content,
     ));
   }
+}
+
+/**
+ * Determine whether or not to show this modules table of contents tab.
+ *
+ * @param FedoraObject $object
+ *   The book object.
+ *
+ * @return bool
+ *   TRUE if it should be shown, and FALSE if it should not be shown.
+ */
+function islandora_newspaper_toc_access_callback($object = NULL) {
+  if (!isset($object)) {
+    return FALSE;
+  }
+  $is_issue = in_array('islandora:newspaperIssueCModel', $object->models);
+  $is_toc = isset($object['TOC']);
+  return $is_issue && $is_toc && islandora_object_access_callback(FEDORA_VIEW_OBJECTS, $object);
+}
+
+/**
+ * Renders the Table of Contents local menu task.
+ *
+ * @param FedoraObject $object
+ *   The book object to fetch the pages from.
+ *
+ * @return string
+ *   The HTML repersentation of the given books pages.
+ */
+function islandora_newspaper_toc_menu(FedoraObject $object) {
+  return theme('islandora_newspaper_toc', array('object' => $object));
 }
