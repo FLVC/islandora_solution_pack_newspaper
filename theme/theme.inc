@@ -307,24 +307,3 @@ function islandora_newspaper_preprocess_islandora_newspaper_page(array &$variabl
     $variables['content'] = NULL;
   }
 }
-
-/**
- * Implements hook_preprocess_theme().
- */
-function islandora_newspaper_preprocess_islandora_newspaper_toc(array &$variables) {
-  $object = $variables['object'];
-  $toc_from_datastream = array();
-
-  if (isset($object['TOC']))
-  {
-    $toc_from_datastream = drupal_json_decode($object['TOC']->content);
-  }
-
-  $variables['toc_entries'] = $toc_from_datastream;
-  $module_path = drupal_get_path('module', 'islandora_newspaper');
-  $library_path = libraries_get_path('jstree-v.pre1.0');
-  drupal_add_js("$library_path/_lib/jquery.js");
-  drupal_add_js("$library_path/_lib/jquery.cookie.js");
-  drupal_add_js("$library_path/jquery.jstree.js");
-  drupal_add_js("$module_path/js/toc-tree.js");
-}
