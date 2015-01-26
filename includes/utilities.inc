@@ -114,6 +114,20 @@ EOQ;
   ));
 
   $results = $object->repository->ri->sparqlQuery($query);
+
+  // temporary fix for unexpected duplicate results coming back from query
+  $pidlist = array();
+  foreach ($results as $result) {
+    $pidlist[] = $result['object']['value'];
+  }
+  $pidcounts = array_count_values($pidlist);
+  foreach ($results as $result) {
+    $checkpid = $result['object']['value'];
+    if (($pidcounts[$checkpid] > 1)&&(strlen($result['issued']['value']) == 0)) {
+      unset($result);
+    }
+  }
+
   // Map the results using a default Datetime for missing issued dates.
   $map_results = function($o) {
     try {
