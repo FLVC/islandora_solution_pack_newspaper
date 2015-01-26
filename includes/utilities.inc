@@ -121,7 +121,8 @@ EOQ;
     $pidlist[] = $result['object']['value'];
   }
   $pidcounts = array_count_values($pidlist);
-  for ($i=0; $i<count($results); $i++) {
+  $resultcount = count($results);
+  for ($i=0; $i<$resultcount; $i++) {
     $checkpid = $results[$i]['object']['value'];
     if (($pidcounts[$checkpid] > 1)&&(strlen($results[$i]['issued']['value']) == 0)) {
       unset($results[$i]);
