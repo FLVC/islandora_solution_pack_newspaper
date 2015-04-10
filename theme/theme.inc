@@ -129,7 +129,12 @@ function theme_islandora_newspaper_issue_navigator(array $variables) {
   $newspaper = islandora_newspaper_get_newspaper($object);
   $newspaper = $newspaper ? islandora_object_load($newspaper) : FALSE;
   $issues = $newspaper ? islandora_newspaper_get_issues($newspaper) : array();
-  $issues = array_keys($issues);
+  foreach ($issues as $key => $value) {
+    $issues_sorted[$key] = $value['issued'];
+  }
+  asort($issues_sorted);
+  $issues = array_keys($issues_sorted);
+  //$issues = array_keys($issues);
   if (empty($issues)) {
     $issues[] = $object->id;
   }
