@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This module packages functions for ingesting and displaying newspaper content. 
+This module packages functions for ingesting and displaying newspaper content.
 
 ## Requirements
 
@@ -21,9 +21,14 @@ Install as usual, see [this](https://drupal.org/documentation/install/modules-th
 
 ## Configuration
 
-Select configuration options for page derivatives, Parent Solr Field, and select a viewer for the book object and page objects in in Administration » Islandora » Newpaper Collection (admin/islandora/newspaper).
+Select configuration options for page derivatives, Parent Solr Field, and select a viewer for the issue view and page view in  Administration » Islandora » Solution pack configuration » Newspapers (admin/islandora/solution_pack_config/newspaper).
 
-![Configuration](http://i.imgur.com/VvKjdyF.png)
+
+![Configuration](https://camo.githubusercontent.com/00b3d34d5927b733689ce0d1598a79c832082937/687474703a2f2f692e696d6775722e636f6d2f56764b6a6479462e706e67)
+
+## Documentation
+
+Further documentation for this module is available at [our wiki](https://wiki.duraspace.org/display/ISLANDORA/Newspaper+Solution+Pack).
 
 ## Troubleshooting/Issues
 
@@ -36,12 +41,11 @@ Having problems or solved a problem? Check out the Islandora google groups for a
 
 Current maintainers:
 
-* [Paul Pound](https://github.com/ppound)
-* [UPEI/Roberston Library](https://github.com/roblib)
+* [Jared Whiklo](https://github.com/whikloj)
 
 ## Development
 
-If you would like to contribute to this module, please check out our helpful [Documentation for Developers](https://github.com/Islandora/islandora/wiki#wiki-documentation-for-developers) info, as well as our [Developers](http://islandora.ca/developers) section on the Islandora.ca site.
+If you would like to contribute to this module, please check out [CONTRIBUTING.md](CONTRIBUTING.md). In addition, we have helpful [Documentation for Developers](https://github.com/Islandora/islandora/wiki#wiki-documentation-for-developers) info, as well as our [Developers](http://islandora.ca/developers) section on the [Islandora.ca](http://islandora.ca) site.
 
 ## License
 
