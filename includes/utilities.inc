@@ -354,7 +354,7 @@ function islandora_newspaper_set_mods_date_issued(AbstractDatastream $datastream
     else {
       $msg  = 'Failed to get originInfo from MODS for @pid';
       $vars = array('@pid' => $datastream->parent->id);
-      watchdog_exception('islandora_newspaper', $e, $msg, $vars, WATCHDOG_ERROR);
+      watchdog('islandora_newspaper', $msg, $vars, WATCHDOG_ERROR);
     }
   }
   file_unmanaged_delete($file);
