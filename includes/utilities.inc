@@ -86,15 +86,15 @@ PREFIX fedora-rels-ext: <info:fedora/fedora-system:def/relations-external#>
 SELECT DISTINCT ?object ?sequence ?label ?issued
 FROM <#ri>
 WHERE {
-  ?object fedora-rels-ext:isMemberOf <info:fedora/{$object->id}> ;
-       <fedora-model:hasModel> <info:fedora/islandora:newspaperIssueCModel> ;
-       <fedora-model:label> ?label .
-  ?object islandora-rels-ext:isSequenceNumber ?sequence .
-  ?object islandora-rels-ext:dateIssued ?issued
+  ?object fedora-rels-ext:isMemberOf          <info:fedora/{$object->id}> ;
+          <fedora-model:hasModel>             <info:fedora/islandora:newspaperIssueCModel> ;
+          <fedora-model:label>                ?label ;
+          islandora-rels-ext:isSequenceNumber ?sequence ;
+          islandora-rels-ext:dateIssued       ?issued
   !optionals
   !filters
 }
-ORDER BY ?sequence
+ORDER BY ?issued ?sequence
 EOQ;
 
   // XXX: Can't really use the fully featured query_filter and query_statements
