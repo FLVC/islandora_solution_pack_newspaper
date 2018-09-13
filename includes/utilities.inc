@@ -89,6 +89,7 @@ WHERE {
   ?object fedora-rels-ext:isMemberOf          <info:fedora/{$object->id}> ;
           <fedora-model:hasModel>             <info:fedora/islandora:newspaperIssueCModel> ;
           <fedora-model:label>                ?label ;
+          <fedora-model:state>                <fedora-model:Active>;
           islandora-rels-ext:isSequenceNumber ?sequence ;
           islandora-rels-ext:dateIssued       ?issued
   !optionals
